@@ -3,6 +3,8 @@ import pineapple from "./../../assets/pineapple.svg";
 import Card from "./card";
 import { card, cardData } from "../../../models/card";
 import { useState, useEffect, useRef } from "react";
+import GameControls from "./game-controls";
+import EndGameDialog from "./endgame-dialog";
 
 function getCards(allCards: cardData[]): card[] {
   let arrayOfCards: any[] = [];
@@ -37,6 +39,8 @@ function Gameboard({ playingCards }: { playingCards: card[] }) {
   const [openCards, setOpenCards] = useState<number[]>([]);
   const [clearedCards, setClearedCards] = useState<number[]>([]);
   const [isDisabled, setDisabled] = useState(false);
+  const [endGame, setEndGame] = useState(false);
+  const [startGame, setStartGame] = useState(false);
 
   function handleClick(i: number) {
     setMoves((prev) => prev + 1);
@@ -70,11 +74,26 @@ function Gameboard({ playingCards }: { playingCards: card[] }) {
       checkMatch();
     }
   }, [openCards]);
+
+  useEffect(() => {
+    if (clearedCards.length === 16) {
+      setEndGame(true);
+      console.log("game over");
+    }
+  });
+
+  const reset = () => {
+    setEndGame(false);
+    setMoves(0);
+    setOpenCards([]);
+    setClearedCards([]);
+  };
   const checkIsFlipped = (i: number) => openCards.includes(i);
   const checkIsRemoved = (i: number) => clearedCards.includes(i);
   return (
     <div>
-      <h2 className="pinneapple-yellow">{moves}</h2>
+      <GameControls moves={moves} />
+      {/* <h2 className="pinneapple-yellow">{moves}</h2> */}
       <div className="gameboard">
         {cards.map((card, index: number) => (
           <Card
@@ -92,6 +111,7 @@ function Gameboard({ playingCards }: { playingCards: card[] }) {
           // </div>
         ))}
       </div>
+      {endGame && <EndGameDialog moves={moves} handleReset={reset} />}
     </div>
   );
 }
