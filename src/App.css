@@ -1,0 +1,152 @@
+body {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #00a3e4;
+  font-family: "Comfortaa", cursive;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-weight: bold;
+}
+
+.psych-green {
+  color: #90c541;
+}
+
+.psych-blue {
+  color: #00a3e4;
+}
+
+.pinneapple-yellow {
+  color: #fee721;
+}
+
+.snow-white {
+  color: #fcf7f8;
+}
+
+.grey {
+  color: #c9c5cb;
+}
+
+.gameboard {
+  width: 800px;
+  height: 600px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+}
+
+.card {
+  width: 120px;
+  height: 150px;
+  flex: 0 0 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  margin: 10px;
+  transform: rotateY(0deg);
+}
+
+.flipped {
+  animation: flipToFront 0.5s 0s ease-in forwards;
+}
+.removed {
+  visibility: hidden;
+}
+
+.card-back {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 8px solid #c9c5cb;
+  border-radius: 10px;
+  height: 100%;
+  width: 100%;
+  background-image: url("./assets/pineapple.svg");
+  background-position: center;
+  background-size: 225%;
+  position: absolute;
+  background-color: #90c541;
+  z-index: 1;
+  transform: rotateY(0deg);
+  /* animation: flipToBack 0.5s 1s ease-in forwards; */
+  backface-visibility: hidden;
+}
+
+.flipToBack {
+  animation: flipToBack 0.5s 1s ease-in forwards;
+}
+.card-front {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 8px solid #c9c5cb;
+  border-radius: 10px;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  background-color: #90c541;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+}
+.card-back.flip {
+  animation: flipToFront 0.5s 0s ease-in forwards;
+}
+/* .card-back:not(.flip) {
+  animation: flipToBack 0.5s 0s ease-in forwards;
+} */
+.card-front.flip {
+  animation: flipToBack 0.5s 0s ease-in forwards;
+}
+/* .card-front:not(.flip) {
+  animation: flipToFront 0.5s 0s ease-in forwards;
+} */
+img {
+  width: 200px;
+  height: 500px;
+  border: 1px solid black;
+}
+
+@keyframes flipToBack {
+  from {
+    transform: rotateY(180deg);
+  }
+  to {
+    transform: rotateY(0deg);
+  }
+}
+@keyframes dealCards {
+  from {
+    position: absolute;
+  }
+  to {
+    position: relative;
+  }
+}
+
+@keyframes flipToFront {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(180deg);
+  }
+}
